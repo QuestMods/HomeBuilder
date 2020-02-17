@@ -1,4 +1,4 @@
-Home Builder v0.4 for Quest
+Home Builder v1.0 for Quest
 
 Requirements:
 - .NET Core 3.1 Runtime
