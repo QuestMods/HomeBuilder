@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using System.Threading;
 
 namespace HomeQuest
 {
@@ -22,7 +23,7 @@ namespace HomeQuest
                 app.Run();
                 Console.WriteLine(@"Success.");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.Error.WriteLine(@"Failed with error: {0}", e.Message);
 
@@ -35,8 +36,8 @@ namespace HomeQuest
             }
 
             Console.WriteLine();
-            Console.WriteLine(@"Press Enter to EXIT.");
-            Console.ReadLine();
+            Console.WriteLine(@"The application will now close.");
+            Thread.Sleep(2500);
         }
 
         private static bool DebugRequired(string param)
