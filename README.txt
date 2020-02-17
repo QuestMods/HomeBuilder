@@ -1,6 +1,7 @@
 Home Builder v0.4 for Quest
 
 Requirements:
+- .NET Core 3.1 Runtime
 - Java installed and available from the command-line
 - GLTF project exported to 'exported_from_blender':
 	- Folder 'textures'
