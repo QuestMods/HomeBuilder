@@ -4,7 +4,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Threading;
 
 namespace HomeQuest
 {
@@ -22,7 +21,6 @@ namespace HomeQuest
         public static readonly string MODEL_FOLDER = "exported_from_blender";
 
         private string _platform;
-        private string _apkFile;
         private string _oggFile;
         private string _ovrsceneFile;
         private string _tempApkFile;
@@ -57,7 +55,7 @@ namespace HomeQuest
             _ovrsceneFile = Path.GetFileName(_ovrsceneFile);
             File.Copy(_ovrsceneFile, TEMP + "/" + _ovrsceneFile);
 
-            if(_oggFile != null)
+            if (_oggFile != null)
                 _oggFile = Path.GetFileName(_oggFile);
 
             Build(CLASSIC_HOME, SILENT_AUDIO_OGG);
@@ -85,11 +83,11 @@ namespace HomeQuest
                 throw new Exception(@"Java must be installed and accessible from the console.");
             }
         }
-        
+
         private void Build(string originalEnvironment, string customOggFile)
         {
             _tempApkFile = string.Format("{0}_{1}", _modelName, originalEnvironment);
-            if(customOggFile == SILENT_AUDIO_OGG)
+            if (customOggFile == SILENT_AUDIO_OGG)
                 _tempApkFile += "_NoAudio";
             _tempApkFile += ".apk";
 
@@ -150,7 +148,7 @@ namespace HomeQuest
             var process = Process.Start(psi);
             process.WaitForExit();
         }
-            
+
         private void SignApk()
         {
             ProcessStartInfo psi = new ProcessStartInfo();
@@ -158,7 +156,7 @@ namespace HomeQuest
             psi.Arguments = "-jar -Duser.language=en -Dfile.encoding=UTF8 \"dependencies/apksigner.jar\" ";
             psi.Arguments += "sign --key \"dependencies/signkey.pk8\" ";
             psi.Arguments += "--cert \"dependencies/signkey.x509.pem\" ";
-            psi.Arguments += string.Format("--out \"{0}\" \"{0}\"", _tempApkFile, _tempApkFile);
+            psi.Arguments += string.Format("--out \"{0}\" \"{0}\"", _tempApkFile);
             psi.RedirectStandardError = true;
             psi.RedirectStandardOutput = true;
             psi.UseShellExecute = false;
@@ -182,6 +180,9 @@ namespace HomeQuest
             var tempArchiveName = TEMP + ARCHIVE;
 
             File.Move(_ovrsceneFile, tempArchiveName + "/" + _modelName + OVRSCENE_EXTENSION + ".zip", true);
+
+            if(_oggFile != null)
+                File.Copy(_oggFile, tempArchiveName + "/" + _oggFile, true);
 
             ZipFile.CreateFromDirectory(tempArchiveName, tempArchiveName + ".zip");
 
