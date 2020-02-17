@@ -35,7 +35,7 @@ namespace HomeQuest
             }
 
             Console.WriteLine();
-            Console.WriteLine(@"Press any key to EXIT.");
+            Console.WriteLine(@"Press Enter to EXIT.");
             Console.ReadLine();
         }
 
