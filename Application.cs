@@ -172,7 +172,7 @@ namespace HomeQuest
             Directory.CreateDirectory(ARCHIVE);
             Directory.CreateDirectory(tempArchiveName);
 
-            File.Move(_tempApkFile, tempArchiveName + "/" + _tempApkFile, true);
+            File.Copy(_tempApkFile, tempArchiveName + "/" + _tempApkFile, true);
         }
 
         private void PostArchiveEnvironment()
@@ -209,8 +209,6 @@ namespace HomeQuest
 
             if (File.Exists(OVRSCENE_NAME + OVRSCENE_EXTENSION))
                 File.Delete(OVRSCENE_NAME + OVRSCENE_EXTENSION);
-
-            Directory.GetFiles(Directory.GetCurrentDirectory(), "*.apk").ToList().ForEach(f => File.Delete(f));
         }
     }
 }
